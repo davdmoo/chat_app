@@ -8,8 +8,9 @@ class AuthForm extends StatefulWidget {
     bool isLogin,
     BuildContext ctx,
   ) submitAuth;
+  final bool isLoading;
 
-  AuthForm(this.submitAuth);
+  AuthForm(this.submitAuth, this.isLoading);
 
   @override
   State<AuthForm> createState() => _AuthFormState();
@@ -31,8 +32,8 @@ class _AuthFormState extends State<AuthForm> {
 
       widget.submitAuth(
         _userEmail.trim(), // trim removes extra white space
-        _userName.trim(),
         _userPassword.trim(),
+        _userName.trim(),
         _isLogin,
         context,
       );
@@ -90,7 +91,7 @@ class _AuthFormState extends State<AuthForm> {
 
                       return null;
                     },
-                    keyboardType: TextInputType.visiblePassword,
+                    // keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: "Password",
@@ -100,19 +101,23 @@ class _AuthFormState extends State<AuthForm> {
                     },
                   ),
                   SizedBox(height: 20),
-                  RaisedButton(
-                    child: Text(_isLogin ? "Login" : "Sign Up"),
-                    onPressed: _submit,
-                  ),
-                  FlatButton(
-                    textColor: Theme.of(context).primaryColor,
-                    child: Text(_isLogin ? "Create new account" : "Login instead"),
-                    onPressed: () {
-                      setState(() {
-                        _isLogin = !_isLogin;
-                      });
-                    },
-                  ),
+                  if (widget.isLoading)
+                    CircularProgressIndicator(),
+                  if (!widget.isLoading)
+                    RaisedButton(
+                      child: Text(_isLogin ? "Login" : "Sign Up"),
+                      onPressed: _submit,
+                    ),
+                  if (!widget.isLoading)
+                    FlatButton(
+                      textColor: Theme.of(context).primaryColor,
+                      child: Text(_isLogin ? "Create new account" : "Login instead"),
+                      onPressed: () {
+                        setState(() {
+                          _isLogin = !_isLogin;
+                        });
+                      },
+                    ),
                 ],
               ),
             ),
