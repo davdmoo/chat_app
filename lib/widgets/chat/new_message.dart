@@ -23,6 +23,7 @@ class _NewMessageState extends State<NewMessage> {
         "createdAt": Timestamp.now(), // from cloud firestore
         "userId": user.uid,
         "username": userData["username"],
+        "userImage": userData["url"],
       });
     
     _controller.clear();
