@@ -37,11 +37,12 @@ class _UserImagePickerState extends State<UserImagePicker> {
           radius: 40,
           backgroundImage: _pickedImage == null ? null : NetworkImage(_pickedImage),
         ),
-        FlatButton.icon(
+        TextButton.icon(
           icon: Icon(Icons.image),
           label: Text("Add Image"),
           onPressed: _pickImage,
-          textColor: Theme.of(context).primaryColor,
+          // textColor: Theme.of(context).primaryColor,
+          style: TextButton.styleFrom(primary: Theme.of(context).primaryColor),
         ),
       ],
     );
